@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Produk | Nama Toko Anda</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../assets/css/style-kopi.css"> 
+
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="../index.html">NAMA TOKO</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="product-list.html">Product</a></li>
+                        <li class="nav-item"><a class="nav-link" href="store.html">Store</a></li>
+                        <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="career.html">Career</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                        <li class="nav-item"><a class="nav-link btn btn-outline-dark ms-lg-3" href="cart.html">Cart (0)</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-5">
+        <h1 class="mb-4">Katalog Produk</h1>
+
+        <div class="row">
+            
+            <div class="col-lg-3 mb-4">
+                <div class="card p-3 shadow-sm">
+                    <h5 class="card-title">Filter</h5>
+                    <hr>
+                    
+                    <div class="mb-3">
+                        <h6>Kategori</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="category1">
+                            <label class="form-check-label" for="category1">Elektronik</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="category2">
+                            <label class="form-check-label" for="category2">Fashion Pria</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="category3">
+                            <label class="form-check-label" for="category3">Aksesoris</label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <h6>Harga</h6>
+                        <input type="range" class="form-range" min="0" max="1000000" step="50000" id="priceRange">
+                        <small>Max Harga: <span id="priceValue">Rp 1.000.000</span></small>
+                    </div>
+
+                    <button class="btn btn-outline-secondary btn-sm">Reset Filter</button>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <p class="mb-0 text-muted">Menampilkan 1-12 dari 45 Produk</p>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Urutkan Berdasarkan
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="sortDropdown">
+                            <li><a class="dropdown-item" href="#">Terbaru</a></li>
+                            <li><a class="dropdown-item" href="#">Harga Termurah</a></li>
+                            <li><a class="dropdown-item" href="#">Harga Termahal</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" id="productList">
+                    
+                    <div class="col">
+                        <div class="card h-100 shadow-sm product-card">
+                            <img src="../assets/img/product1.webp" class="card-img-top" alt="Product 1">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Headset Gaming Pro V2</h5>
+                                <p class="card-text text-muted small">Elektronik</p>
+                                <p class="card-text text-danger fw-bold fs-5 mt-auto">Rp 450.000</p>
+                                <a href="product-detail.html?id=1" class="btn btn-success mt-2">Beli Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card h-100 shadow-sm product-card">
+                            <img src="../assets/img/product2.webp" class="card-img-top" alt="Product 2">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Kaos Distro Minimalis</h5>
+                                <p class="card-text text-muted small">Fashion Pria</p>
+                                <p class="card-text text-danger fw-bold fs-5 mt-auto">Rp 120.000</p>
+                                <a href="product-detail.html?id=2" class="btn btn-success mt-2">Beli Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col">
+                        <div class="card h-100 shadow-sm product-card">
+                            <img src="../assets/img/product3.webp" class="card-img-top" alt="Product 3">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Jam Tangan Kulit</h5>
+                                <p class="card-text text-muted small">Aksesoris</p>
+                                <p class="card-text text-danger fw-bold fs-5 mt-auto">Rp 300.000</p>
+                                <a href="product-detail.html?id=3" class="btn btn-success mt-2">Beli Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    </div>
+
+                <nav aria-label="Page navigation" class="mt-5">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a></li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white mt-5 pt-4 pb-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5>NAMA TOKO</h5>
+                    <p>Pusat belanja online terbaik.</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Tautan Cepat</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="store.html" class="text-white text-decoration-none">Store</a></li>
+                        <li><a href="news.html" class="text-white text-decoration-none">News</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Hubungi Kami</h5>
+                    <p>Email: info@namatoko.com</p>
+                </div>
+            </div>
+            <div class="text-center border-top pt-2 mt-2">
+                <p class="small">&copy; 2024 Nama Toko Anda.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/cart.js"></script> </body>
+</html>

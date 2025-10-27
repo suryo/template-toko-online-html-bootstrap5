@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Admin | Nama Toko Anda</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../../assets/css/style-admin-kopi.css" />
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <div id="sidebar-wrapper">
+            <div class="sidebar-heading">ADMIN TOKO</div>
+            <div class="list-group list-group-flush">
+                <a
+                    href="dashboard.html"
+                    class="list-group-item list-group-item-action active"
+                ><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a
+                >
+                <a
+                    href="product-management.html"
+                    class="list-group-item list-group-item-action"
+                ><i class="fas fa-boxes me-2"></i>Manajemen Produk</a
+                >
+                <a href="#" class="list-group-item list-group-item-action"
+                ><i class="fas fa-shopping-cart me-2"></i>Manajemen Pesanan</a
+                >
+                <a href="#" class="list-group-item list-group-item-action"
+                ><i class="fas fa-users me-2"></i>Manajemen User</a
+                >
+                <a
+                    href="../login.html"
+                    class="list-group-item list-group-item-action text-danger"
+                ><i class="fas fa-sign-out-alt me-2"></i>Logout</a
+                >
+            </div>
+        </div>
+        <div id="page-content-wrapper">
+            <nav
+                class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm fixed-top"
+                style="z-index: 1000"
+            >
+                <div class="container-fluid">
+                    <button class="btn btn-primary" id="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="ms-auto">
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a
+                                    class="nav-link dropdown-toggle"
+                                    href="#"
+                                    id="navbarDropdown"
+                                    role="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false"
+                                >
+                                    <i class="fas fa-user-circle me-1"></i> Admin User
+                                </a>
+                                <div
+                                    class="dropdown-menu dropdown-menu-end"
+                                    aria-labelledby="navbarDropdown"
+                                >
+                                    <a class="dropdown-item" href="#">Profile</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="../login.html">Logout</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="container-fluid mt-5 py-4 main-content">
+                <h2 class="mb-4">Dashboard Utama</h2>
+
+                <div class="row g-4 mb-4">
+                    <div class="col-lg-3 col-md-6">
+                        <div
+                            class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded"
+                        >
+                            <div>
+                                <h3 class="fs-2">1200</h3>
+                                <p class="fs-5 mb-0">Total Penjualan</p>
+                            </div>
+                            <i class="fas fa-shopping-cart fs-1 text-primary"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div
+                            class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded"
+                        >
+                            <div>
+                                <h3 class="fs-2">Rp 55 Jt</h3>
+                                <p class="fs-5 mb-0">Pendapatan Bulan Ini</p>
+                            </div>
+                            <i class="fas fa-wallet fs-1 text-success"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div
+                            class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded"
+                        >
+                            <div>
+                                <h3 class="fs-2">420</h3>
+                                <p class="fs-5 mb-0">Pelanggan Baru</p>
+                            </div>
+                            <i class="fas fa-users fs-1 text-warning"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div
+                            class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded"
+                        >
+                            <div>
+                                <h3 class="fs-2">95%</h3>
+                                <p class="fs-5 mb-0">Kepuasan Pelanggan</p>
+                            </div>
+                            <i class="fas fa-chart-line fs-1 text-danger"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="mt-4 mb-3">Pesanan Terbaru</h3>
+                <div class="row my-5">
+                    <div class="col">
+                        <div class="card shadow-sm p-3">
+                            <div class="table-responsive">
+                                <table class="table bg-white rounded shadow-sm table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID Pesanan</th>
+                                            <th>Pelanggan</th>
+                                            <th>Total</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>#ORD-001</td>
+                                            <td>Ani M.</td>
+                                            <td>Rp 715.000</td>
+                                            <td>
+                                                <span class="badge bg-warning">Menunggu Bayar</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#ORD-002</td>
+                                            <td>Budi S.</td>
+                                            <td>Rp 450.000</td>
+                                            <td><span class="badge bg-success">Terkirim</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>#ORD-003</td>
+                                            <td>Citra K.</td>
+                                            <td>Rp 1.200.000</td>
+                                            <td><span class="badge bg-info text-dark">Diproses</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="admin-footer text-center">
+                <div class="container-fluid">
+                    <p class="mb-0 small">
+                        © 2024 Nama Toko Anda | Dashboard Administrasi v1.0
+                    </p>
+                </div>
+            </footer>
+            </div>
+        </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle Sidebar Script (Vanilla JS)
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+
+        toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
+
+        // KUNCI: Atur agar sidebar hilang di tampilan mobile secara default
+        if (window.innerWidth < 992) {
+            el.classList.add("toggled");
+        }
+    </script>
+</body>
+</html>

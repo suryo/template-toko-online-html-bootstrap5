@@ -1,0 +1,161 @@
+/* ========================================= */
+/* TEMA: Peralatan Teknik (Kuat, Industrial, dan Maroon) */
+/* ========================================= */
+:root {
+    --main-bg: #e8e8e8;     /* Abu-abu terang (Industrial Concrete) */
+    --sidebar-bg: #3c4043;  /* Abu-abu gelap/Arang (Kesan logam/berat) */
+    --sidebar-color: #ffffff; /* Teks putih */
+    --primary-color: #892332; /* Merah Maroon (Warna Aksi) */
+    --secondary-color: #ffc107; /* Kuning Safety (Warna Aksen/Peringatan) */
+}
+
+/* ========================================= */
+/* BASE LAYOUT */
+/* ========================================= */
+body {
+    background-color: var(--main-bg);
+    overflow-x: hidden;
+}
+
+#wrapper { 
+    display: flex; 
+}
+
+/* Page Content Wrapper */
+#page-content-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column; 
+    min-height: 100vh;
+}
+
+.main-content {
+    padding-top: 70px; 
+    flex-grow: 1; 
+}
+
+/* Footer styling */
+.admin-footer {
+    background-color: #d1d1d1; /* Abu-abu sedang */
+    color: #495057;
+    padding: 1rem 0;
+    border-top: 1px solid #c0c0c0;
+    margin-top: auto; 
+}
+
+/* ========================================= */
+/* SIDEBAR STYLING */
+/* ========================================= */
+#sidebar-wrapper {
+    min-height: 100vh;
+    width: 15rem; 
+    margin-left: -15rem; 
+    transition: margin 0.3s ease-out;
+    background-color: var(--sidebar-bg);
+    color: var(--sidebar-color);
+    border-right: 1px solid rgba(255, 255, 255, 0.1); 
+    position: fixed; 
+    z-index: 999;
+}
+
+#wrapper.toggled #sidebar-wrapper { 
+    margin-left: 0; 
+}
+
+.sidebar-heading {
+    padding: 1.5rem 1rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--secondary-color); /* Judul sidebar kuning safety */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.list-group-item {
+    color: var(--sidebar-color);
+    background-color: var(--sidebar-bg);
+    border: none;
+    padding: 1rem 1.5rem;
+    transition: background-color 0.1s ease-in;
+}
+
+.list-group-item:hover {
+    background-color: #585d61; /* Hover abu-abu gelap */
+    color: white;
+}
+
+.list-group-item.active {
+    background-color: var(--primary-color) !important; /* Maroon */
+    color: white !important;
+}
+
+/* ========================================= */
+/* BUTTONS & PRIMARY COLORS */
+/* ========================================= */
+/* Tombol aksi utama menggunakan Merah Maroon */
+.btn-primary,
+#menu-toggle {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+.btn-primary:hover,
+#menu-toggle:hover {
+    background-color: #6d1b27; /* Maroon sedikit lebih gelap */
+    border-color: #6d1b27;
+}
+
+/* Terapkan primary color pada tautan navigasi aktif di navbar */
+.nav-link:focus, .nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+
+/* ========================================= */
+/* MOBILE LIST VIEW STYLING (HANYA PRODUK) */
+/* ========================================= */
+.product-list-mobile .card {
+    border-left: 5px solid var(--primary-color); /* Garis batas Maroon */
+    margin-bottom: 1rem;
+}
+.product-list-mobile .card-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+.product-list-mobile .badge-mobile {
+    font-size: 0.9em;
+    font-weight: 400;
+}
+
+
+/* ========================================= */
+/* MEDIA QUERIES (RESPONSIVITAS) */
+/* ========================================= */
+/* Semua pengaturan responsivitas tetap sama */
+@media (max-width: 991.98px) {
+    .table-container-desktop {
+        display: none; 
+    }
+    .list-container-mobile {
+        display: block; 
+    }
+}
+
+@media (min-width: 992px) {
+    #sidebar-wrapper { 
+        margin-left: 0; 
+        position: static;
+    }
+    #page-content-wrapper { 
+        min-width: 0; 
+        width: 100%;
+    }
+    #wrapper.toggled #sidebar-wrapper { 
+        margin-left: -15rem;
+    }
+    
+    .table-container-desktop {
+        display: block; 
+    }
+    .list-container-mobile {
+        display: none; 
+    }
+}

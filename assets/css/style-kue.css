@@ -1,0 +1,162 @@
+/* ========================================= */
+/* TEMA: Toko Kue (Hangat, Lembut, dan Manis) */
+/* ========================================= */
+:root {
+    --main-bg: #fffaf0; /* White/Creamy Vanilla (latar utama sangat lembut) */
+    --sidebar-bg: #d8b89e; /* Beige/Cokelat Muda (Warna dasar kue) */
+    --sidebar-color: #333333; /* Teks gelap agar mudah dibaca di latar terang */
+    --primary-color: #ff69b4; /* Pink Cerah (Warna Frosting/Cherry, Warna Aksi) */
+    --secondary-color: #f7d794; /* Kuning Pastel/Lemon Cream (Warna Aksen) */
+}
+
+/* ========================================= */
+/* BASE LAYOUT */
+/* ========================================= */
+body {
+    background-color: var(--main-bg);
+    overflow-x: hidden;
+}
+
+#wrapper { 
+    display: flex; 
+}
+
+/* Page Content Wrapper */
+#page-content-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column; 
+    min-height: 100vh;
+}
+
+.main-content {
+    padding-top: 70px; /* Jarak dari fixed navbar */
+    flex-grow: 1; 
+}
+
+/* Footer styling */
+.admin-footer {
+    background-color: var(--main-bg); /* Menggunakan warna latar yang sama */
+    color: #6c757d;
+    padding: 1rem 0;
+    border-top: 1px solid #dee2e6;
+    margin-top: auto; 
+}
+
+/* ========================================= */
+/* SIDEBAR STYLING */
+/* ========================================= */
+#sidebar-wrapper {
+    min-height: 100vh;
+    width: 15rem; 
+    margin-left: -15rem; 
+    transition: margin 0.3s ease-out;
+    background-color: var(--sidebar-bg);
+    color: var(--sidebar-color);
+    border-right: 1px solid rgba(0, 0, 0, 0.1); /* Border lebih gelap */
+    position: fixed; 
+    z-index: 999;
+}
+
+#wrapper.toggled #sidebar-wrapper { 
+    margin-left: 0; 
+}
+
+.sidebar-heading {
+    padding: 1.5rem 1rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color); /* Judul sidebar pink cerah */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.list-group-item {
+    color: var(--sidebar-color);
+    background-color: var(--sidebar-bg);
+    border: none;
+    padding: 1rem 1.5rem;
+    transition: background-color 0.1s ease-in;
+}
+
+.list-group-item:hover {
+    background-color: #c9a589; /* Hover cokelat muda yang lembut */
+    color: #000000;
+}
+
+.list-group-item.active {
+    background-color: var(--primary-color) !important; 
+    color: white !important;
+}
+
+/* ========================================= */
+/* BUTTONS & PRIMARY COLORS */
+/* ========================================= */
+/* Terapkan primary color pada tombol aksi utama (menu toggle, simpan, tambah) */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+.btn-primary:hover {
+    background-color: #f74d9e; /* Pink sedikit lebih gelap */
+    border-color: #f74d9e;
+}
+
+/* Terapkan primary color pada tautan navigasi aktif di navbar */
+.nav-link:focus, .nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+
+/* ========================================= */
+/* MOBILE LIST VIEW STYLING (HANYA PRODUK) */
+/* ========================================= */
+.product-list-mobile .card {
+    border-left: 5px solid var(--primary-color); /* Garis batas dengan warna pink */
+    margin-bottom: 1rem;
+}
+.product-list-mobile .card-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+.product-list-mobile .badge-mobile {
+    font-size: 0.9em;
+    font-weight: 400;
+}
+
+
+/* ========================================= */
+/* MEDIA QUERIES (RESPONSIVITAS) */
+/* ========================================= */
+/* Semua pengaturan responsivitas tetap sama */
+
+/* Mobile View (Tampilkan List, Sembunyikan Tabel) */
+@media (max-width: 991.98px) {
+    .table-container-desktop {
+        display: none; 
+    }
+    .list-container-mobile {
+        display: block; 
+    }
+}
+
+/* Desktop View (Sembunyikan List, Tampilkan Tabel) */
+@media (min-width: 992px) {
+    #sidebar-wrapper { 
+        margin-left: 0; 
+        position: static;
+    }
+    #page-content-wrapper { 
+        min-width: 0; 
+        width: 100%;
+    }
+    #wrapper.toggled #sidebar-wrapper { 
+        margin-left: -15rem;
+    }
+    
+    .table-container-desktop {
+        display: block; 
+    }
+    .list-container-mobile {
+        display: none; 
+    }
+}

@@ -1,0 +1,145 @@
+
+        /* ========================================= */
+        /* TEMA: Kopi & Kafe (Hangat, Earthy, dan Industrial) */
+        /* ========================================= */
+        :root {
+            --main-bg: #f9f6f3;     /* Off-White / Krem Sangat Muda */
+            --sidebar-bg: #3c2f2f;  /* Cokelat Espresso Gelap */
+            --sidebar-color: #f0e6da; /* Teks Krem Muda */
+            --primary-color: #a0522d; /* Sienna / Cokelat Kaya (Warna Kopi Utama) */
+            --secondary-color: #6b8e23; /* Olive Drab / Hijau Daun (Warna Aksen) */
+        }
+
+        body {
+            background-color: var(--main-bg);
+            overflow-x: hidden;
+            color: #333; /* Default text color */
+        }
+
+        /* Wrapper untuk layout flex */
+        #wrapper {
+            display: flex;
+        }
+
+        /* Styling Sidebar */
+        #sidebar-wrapper {
+            min-height: 100vh;
+            margin-left: -15rem; /* Sembunyikan secara default */
+            transition: margin 0.3s ease-out;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-color);
+            border-right: 1px solid rgba(0, 0, 0, 0.2);
+            position: fixed; /* Fix sidebar on mobile */
+            z-index: 999; 
+        }
+
+        /* Tampilkan sidebar saat toggled */
+        #wrapper.toggled #sidebar-wrapper {
+            margin-left: 0;
+        }
+
+        /* Styling Item Sidebar */
+        .list-group-item {
+            color: var(--sidebar-color);
+            background-color: var(--sidebar-bg);
+            border: none;
+            padding: 1rem 1.5rem;
+            transition: background-color 0.1s ease-in;
+        }
+
+        .list-group-item:hover {
+            background-color: #4b3e3e; /* Hover cokelat sedikit lebih terang */
+            color: white;
+        }
+
+        .list-group-item.active {
+            background-color: var(--primary-color) !important; /* Cokelat Kaya */
+            color: white !important;
+        }
+
+        .sidebar-heading {
+            padding: 1.5rem 1rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--secondary-color); /* Judul sidebar Hijau Daun */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Navbar */
+        .navbar {
+            /* Navbar tetap putih agar kontras dengan latar belakang utama */
+            border-bottom: 1px solid #ddd !important;
+        }
+
+        /* Tombol Toggle Menu */
+        .btn-primary,
+        #menu-toggle {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .btn-primary:hover,
+        #menu-toggle:hover {
+            background-color: #8c4728; 
+            border-color: #8c4728;
+        }
+        
+        /* Page Content Wrapper: Flex Column untuk Sticky Footer */
+        #page-content-wrapper {
+            width: 100%;
+            display: flex; /* Aktifkan Flexbox */
+            flex-direction: column; /* Susun item secara vertikal */
+            min-height: 100vh; /* Pastikan wrapper minimal setinggi viewport */
+        }
+        
+        /* Konten utama harus memiliki padding yang cukup di bagian atas dan tumbuh */
+        .main-content {
+            padding-top: 70px; /* Jarak dari fixed navbar */
+            flex-grow: 1; /* Konten tumbuh untuk mendorong footer */
+        }
+
+        /* Footer styling */
+        .admin-footer {
+            background-color: #e6e0da; /* Krem Sedang */
+            color: #6c757d;
+            padding: 1rem 0;
+            border-top: 1px solid #c0b8b1;
+            margin-top: auto; /* Kunci untuk sticky footer */
+        }
+        
+        /* ========================================= */
+        /* DASHBOARD CARDS STYLING (Untuk Dashboard.html) */
+        /* ========================================= */
+        /* Ubah warna ikon di Dashboard Card agar sesuai tema */
+        .text-primary {
+            color: var(--primary-color) !important; /* Icon Cart menjadi Cokelat Kaya */
+        }
+        
+        /* Teks Success (untuk status Terkirim) */
+        .text-success {
+            color: var(--secondary-color) !important; /* Icon Wallet menjadi Hijau Daun */
+        }
+        
+        /* Warna Aksen (Waktu yang Baik untuk Warning/Info) */
+        .text-warning, .bg-warning {
+            color: var(--secondary-color) !important; /* Pelanggan Baru menjadi Hijau Daun */
+        }
+        .bg-warning {
+            background-color: var(--secondary-color) !important;
+            color: white !important;
+        }
+        
+        /* Media Queries untuk tampilan desktop */
+        @media (min-width: 992px) {
+            #sidebar-wrapper {
+                margin-left: 0;
+                position: static; /* Hilangkan fixed position di desktop */
+            }
+            #page-content-wrapper {
+                min-width: 0;
+                width: 100%;
+            }
+            #wrapper.toggled #sidebar-wrapper {
+                margin-left: -15rem;
+            }
+        }
+    
