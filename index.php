@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nama Toko Anda | Home - Produk Terbaik</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style-kopi.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <div class="container">
+          <a class="navbar-brand fw-bold" href="index.html">NAMA TOKO</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse justify-content-end"
+            id="navbarNav"
+          >
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index.html"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="pages/product-list.html">Product</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="pages/store.html">Store</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="pages/news.html">News</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="pages/about.html">About</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="pages/career.html">Career</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="pages/contact.html">Contact Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="pages/login.php">Login</a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link btn btn-outline-dark ms-lg-3"
+                  href="pages/cart.html"
+                  ><i class="fas fa-shopping-cart"></i> Cart (0)</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero-section bg-dark text-white text-center py-5 mb-5">
+        <div class="container py-5">
+          <h1 class="display-3 fw-bold">Penawaran Eksklusif Hari Ini!</h1>
+          <p class="lead">
+            Temukan produk terbaru dengan diskon hingga 50% hanya di sini.
+          </p>
+          <a href="pages/product-list.html" class="btn btn-warning btn-lg mt-3"
+            >Belanja Sekarang!</a
+          >
+        </div>
+      </section>
+
+      <section class="product-highlight container mb-5">
+        <h2 class="text-center mb-4">Produk Pilihan Kami</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <img
+                src="assets/img/product1.webp"
+                class="card-img-top"
+                alt="Product 1"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Nama Produk 1</h5>
+                <p class="card-text text-danger fw-bold">Rp 150.000</p>
+                <a href="pages/product-detail.html" class="btn btn-primary"
+                  >Lihat Detail</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <img
+                src="assets/img/product2.webp"
+                class="card-img-top"
+                alt="Product 2"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Nama Produk 2</h5>
+                <p class="card-text text-danger fw-bold">Rp 225.000</p>
+                <a href="pages/product-detail.html" class="btn btn-primary"
+                  >Lihat Detail</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <img
+                src="assets/img/product3.webp"
+                class="card-img-top"
+                alt="Product 3"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Nama Produk 3</h5>
+                <p class="card-text text-danger fw-bold">Rp 99.000</p>
+                <a href="pages/product-detail.html" class="btn btn-primary"
+                  >Lihat Detail</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-5">
+          <a
+            href="pages/product-list.html"
+            class="btn btn-outline-secondary btn-lg"
+            >Lihat Semua Produk</a
+          >
+        </div>
+      </section>
+
+      <section class="about-summary bg-light py-5">
+        <div class="container text-center">
+          <h2>Siapa Kami?</h2>
+          <p class="lead">
+            Kami adalah toko online terpercaya yang menyediakan kebutuhan Anda
+            dengan kualitas terbaik dan harga yang terjangkau.
+          </p>
+          <a href="pages/about.html" class="btn btn-info text-white mt-3"
+            >Pelajari Lebih Lanjut</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-dark text-white mt-5 pt-4 pb-2">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <h5>NAMA TOKO</h5>
+            <p>
+              Pusat belanja online terbaik di Indonesia. Kepuasan Anda adalah
+              prioritas kami.
+            </p>
+          </div>
+          <div class="col-md-4 mb-3">
+            <h5>Tautan Cepat</h5>
+            <ul class="list-unstyled">
+              <li>
+                <a
+                  href="pages/store.html"
+                  class="text-white text-decoration-none"
+                  >Store</a
+                >
+              </li>
+              <li>
+                <a
+                  href="pages/news.html"
+                  class="text-white text-decoration-none"
+                  >News</a
+                >
+              </li>
+              <li>
+                <a
+                  href="pages/contact.html"
+                  class="text-white text-decoration-none"
+                  >Contact Us</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-4 mb-3">
+            <h5>Hubungi Kami</h5>
+            <p>Email: info@namatoko.com<br />Telp: (021) 123-4567</p>
+          </div>
+        </div>
+        <div class="text-center border-top pt-2 mt-2">
+          <p class="small">&copy; 2024 Nama Toko Anda. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
