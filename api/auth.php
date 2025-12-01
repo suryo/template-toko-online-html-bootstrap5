@@ -40,7 +40,7 @@ switch ($action) {
             ]);
         }
 
-        $stmt = $conn->prepare("SELECT id, nama, email, password, no_hp FROM client_member WHERE email = ?");
+        $stmt = $conn->prepare("SELECT id, nama, email, password, no_hp, role FROM member WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_assoc();
@@ -52,9 +52,8 @@ switch ($action) {
             ]);
         }
 
-        // Verify password (assuming password is hashed with password_hash)
+        // Verify password
         if (password_verify($password, $result['password'])) {
-            // Remove password from response
             unset($result['password']);
             
             jsonResponse(200, [
@@ -63,7 +62,7 @@ switch ($action) {
                 'data' => $result
             ]);
         } else {
-            // Fallback for plain text password (not recommended for production)
+            // Fallback for plain text
             if ($password === $result['password']) {
                 unset($result['password']);
                 
@@ -95,7 +94,6 @@ switch ($action) {
             ]);
         }
 
-        // Validate email format
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             jsonResponse(400, [
                 'status' => false,
@@ -103,8 +101,7 @@ switch ($action) {
             ]);
         }
 
-        // Check if email already exists
-        $checkStmt = $conn->prepare("SELECT id FROM client_member WHERE email = ?");
+        $checkStmt = $conn->prepare("SELECT id FROM member WHERE email = ?");
         $checkStmt->bind_param("s", $email);
         $checkStmt->execute();
         if ($checkStmt->get_result()->num_rows > 0) {
@@ -114,10 +111,9 @@ switch ($action) {
             ]);
         }
 
-        // Hash password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $stmt = $conn->prepare("INSERT INTO client_member (nama, email, password, no_hp) VALUES (?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO member (nama, email, password, no_hp, role) VALUES (?, ?, ?, ?, 'member')");
         $stmt->bind_param("ssss", $nama, $email, $hashedPassword, $no_hp);
 
         if ($stmt->execute()) {
@@ -130,7 +126,8 @@ switch ($action) {
                     'id' => $id,
                     'nama' => $nama,
                     'email' => $email,
-                    'no_hp' => $no_hp
+                    'no_hp' => $no_hp,
+                    'role' => 'member'
                 ]
             ]);
         } else {
@@ -143,7 +140,7 @@ switch ($action) {
 
     // Admin Login
     case 'admin_login':
-        $username = $_POST['username'] ?? null;
+        $username = $_POST['username'] ?? null; // Can be email or name
         $password = $_POST['password'] ?? null;
 
         if (!$username || !$password) {
@@ -153,19 +150,19 @@ switch ($action) {
             ]);
         }
 
-        $stmt = $conn->prepare("SELECT id, username, password, role FROM users WHERE username = ?");
-        $stmt->bind_param("s", $username);
+        // Check by email or nama, AND role must be admin
+        $stmt = $conn->prepare("SELECT id, nama as username, email, password, role FROM member WHERE (email = ? OR nama = ?) AND role = 'admin'");
+        $stmt->bind_param("ss", $username, $username);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_assoc();
 
         if (!$result) {
             jsonResponse(401, [
                 'status' => false,
-                'message' => 'Username atau password salah'
+                'message' => 'Username/Email salah atau bukan admin'
             ]);
         }
 
-        // Verify password (assuming password is hashed with password_hash)
         if (password_verify($password, $result['password'])) {
             unset($result['password']);
             
@@ -175,7 +172,6 @@ switch ($action) {
                 'data' => $result
             ]);
         } else {
-            // Fallback for plain text password
             if ($password === $result['password']) {
                 unset($result['password']);
                 
@@ -187,7 +183,7 @@ switch ($action) {
             } else {
                 jsonResponse(401, [
                     'status' => false,
-                    'message' => 'Username atau password salah'
+                    'message' => 'Password salah'
                 ]);
             }
         }
@@ -204,7 +200,7 @@ switch ($action) {
             ]);
         }
 
-        $stmt = $conn->prepare("SELECT id, nama, email, no_hp FROM client_member WHERE id = ?");
+        $stmt = $conn->prepare("SELECT id, nama, email, no_hp, role FROM member WHERE id = ?");
         $stmt->bind_param("i", $id_member);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_assoc();
