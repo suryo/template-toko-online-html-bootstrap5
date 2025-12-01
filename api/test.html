@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Tester - Toko Online</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .api-section {
+            margin-bottom: 30px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .api-header {
+            background: #f5f5f5;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .api-header:hover {
+            background: #ebebeb;
+        }
+
+        .api-header h3 {
+            color: #667eea;
+            font-size: 1.3em;
+        }
+
+        .api-body {
+            padding: 20px;
+            display: none;
+        }
+
+        .api-body.active {
+            display: block;
+        }
+
+        .test-form {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .response {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .response pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        .method-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        .method-get {
+            background: #4caf50;
+            color: white;
+        }
+
+        .method-post {
+            background: #2196f3;
+            color: white;
+        }
+
+        .method-put {
+            background: #ff9800;
+            color: white;
+        }
+
+        .method-delete {
+            background: #f44336;
+            color: white;
+        }
+
+        .toggle-icon {
+            font-size: 1.5em;
+            transition: transform 0.3s;
+        }
+
+        .toggle-icon.active {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛒 API Tester</h1>
+            <p>Toko Online - Complete REST API</p>
+        </div>
+
+        <div class="content">
+            <!-- Authentication -->
+            <div class="api-section">
+                <div class="api-header" onclick="toggleSection(this)">
+                    <div>
+                        <span class="method-badge method-post">POST</span>
+                        <h3>Authentication - Login Member</h3>
+                    </div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="api-body">
+                    <div class="test-form">
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="email" id="login-email" value="andi@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Password:</label>
+                            <input type="password" id="login-password" value="pass123">
+                        </div>
+                        <button class="btn" onclick="testLogin()">Test Login</button>
+                    </div>
+                    <div id="login-response" class="response" style="display: none;">
+                        <pre></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products -->
+            <div class="api-section">
+                <div class="api-header" onclick="toggleSection(this)">
+                    <div>
+                        <span class="method-badge method-get">GET</span>
+                        <h3>Products - Get All Products</h3>
+                    </div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="api-body">
+                    <div class="test-form">
+                        <button class="btn" onclick="testGetProducts()">Get All Products</button>
+                    </div>
+                    <div id="products-response" class="response" style="display: none;">
+                        <pre></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cart -->
+            <div class="api-section">
+                <div class="api-header" onclick="toggleSection(this)">
+                    <div>
+                        <span class="method-badge method-get">GET</span>
+                        <h3>Cart - Get Cart Items</h3>
+                    </div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="api-body">
+                    <div class="test-form">
+                        <div class="form-group">
+                            <label>Member ID:</label>
+                            <input type="number" id="cart-member-id" value="1">
+                        </div>
+                        <button class="btn" onclick="testGetCart()">Get Cart</button>
+                    </div>
+                    <div id="cart-response" class="response" style="display: none;">
+                        <pre></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add to Cart -->
+            <div class="api-section">
+                <div class="api-header" onclick="toggleSection(this)">
+                    <div>
+                        <span class="method-badge method-post">POST</span>
+                        <h3>Cart - Add to Cart</h3>
+                    </div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="api-body">
+                    <div class="test-form">
+                        <div class="form-group">
+                            <label>Member ID:</label>
+                            <input type="number" id="add-cart-member-id" value="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Product ID:</label>
+                            <input type="number" id="add-cart-product-id" value="3">
+                        </div>
+                        <div class="form-group">
+                            <label>Quantity:</label>
+                            <input type="number" id="add-cart-qty" value="1">
+                        </div>
+                        <button class="btn" onclick="testAddToCart()">Add to Cart</button>
+                    </div>
+                    <div id="add-cart-response" class="response" style="display: none;">
+                        <pre></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories -->
+            <div class="api-section">
+                <div class="api-header" onclick="toggleSection(this)">
+                    <div>
+                        <span class="method-badge method-get">GET</span>
+                        <h3>Categories - Get All Categories</h3>
+                    </div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="api-body">
+                    <div class="test-form">
+                        <button class="btn" onclick="testGetCategories()">Get All Categories</button>
+                    </div>
+                    <div id="categories-response" class="response" style="display: none;">
+                        <pre></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Voucher Validation -->
+            <div class="api-section">
+                <div class="api-header" onclick="toggleSection(this)">
+                    <div>
+                        <span class="method-badge method-get">GET</span>
+                        <h3>Voucher - Validate Voucher Code</h3>
+                    </div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="api-body">
+                    <div class="test-form">
+                        <div class="form-group">
+                            <label>Voucher Code:</label>
+                            <input type="text" id="voucher-code" value="PROMO10">
+                        </div>
+                        <button class="btn" onclick="testValidateVoucher()">Validate Voucher</button>
+                    </div>
+                    <div id="voucher-response" class="response" style="display: none;">
+                        <pre></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reviews -->
+            <div class="api-section">
+                <div class="api-header" onclick="toggleSection(this)">
+                    <div>
+                        <span class="method-badge method-get">GET</span>
+                        <h3>Reviews - Get Product Reviews</h3>
+                    </div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="api-body">
+                    <div class="test-form">
+                        <div class="form-group">
+                            <label>Product ID:</label>
+                            <input type="number" id="review-product-id" value="2">
+                        </div>
+                        <button class="btn" onclick="testGetReviews()">Get Reviews</button>
+                    </div>
+                    <div id="reviews-response" class="response" style="display: none;">
+                        <pre></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost/belajar-web/toko-online-php/api/';
+
+        function toggleSection(header) {
+            const body = header.nextElementSibling;
+            const icon = header.querySelector('.toggle-icon');
+            
+            body.classList.toggle('active');
+            icon.classList.toggle('active');
+        }
+
+        function displayResponse(elementId, data) {
+            const element = document.getElementById(elementId);
+            element.style.display = 'block';
+            element.querySelector('pre').textContent = JSON.stringify(data, null, 2);
+        }
+
+        async function testLogin() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            const formData = new FormData();
+            formData.append('action', 'login');
+            formData.append('email', email);
+            formData.append('password', password);
+
+            try {
+                const response = await fetch(API_BASE + 'auth.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                displayResponse('login-response', data);
+            } catch (error) {
+                displayResponse('login-response', { error: error.message });
+            }
+        }
+
+        async function testGetProducts() {
+            try {
+                const response = await fetch(API_BASE + 'product.php');
+                const data = await response.json();
+                displayResponse('products-response', data);
+            } catch (error) {
+                displayResponse('products-response', { error: error.message });
+            }
+        }
+
+        async function testGetCart() {
+            const memberId = document.getElementById('cart-member-id').value;
+            
+            try {
+                const response = await fetch(API_BASE + 'cart.php?id_member=' + memberId);
+                const data = await response.json();
+                displayResponse('cart-response', data);
+            } catch (error) {
+                displayResponse('cart-response', { error: error.message });
+            }
+        }
+
+        async function testAddToCart() {
+            const memberId = document.getElementById('add-cart-member-id').value;
+            const productId = document.getElementById('add-cart-product-id').value;
+            const qty = document.getElementById('add-cart-qty').value;
+
+            const formData = new FormData();
+            formData.append('id_member', memberId);
+            formData.append('id_barang', productId);
+            formData.append('qty', qty);
+
+            try {
+                const response = await fetch(API_BASE + 'cart.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                displayResponse('add-cart-response', data);
+            } catch (error) {
+                displayResponse('add-cart-response', { error: error.message });
+            }
+        }
+
+        async function testGetCategories() {
+            try {
+                const response = await fetch(API_BASE + 'category.php');
+                const data = await response.json();
+                displayResponse('categories-response', data);
+            } catch (error) {
+                displayResponse('categories-response', { error: error.message });
+            }
+        }
+
+        async function testValidateVoucher() {
+            const code = document.getElementById('voucher-code').value;
+            
+            try {
+                const response = await fetch(API_BASE + 'voucher.php?kode=' + code);
+                const data = await response.json();
+                displayResponse('voucher-response', data);
+            } catch (error) {
+                displayResponse('voucher-response', { error: error.message });
+            }
+        }
+
+        async function testGetReviews() {
+            const productId = document.getElementById('review-product-id').value;
+            
+            try {
+                const response = await fetch(API_BASE + 'review.php?id_barang=' + productId);
+                const data = await response.json();
+                displayResponse('reviews-response', data);
+            } catch (error) {
+                displayResponse('reviews-response', { error: error.message });
+            }
+        }
+    </script>
+</body>
+</html>

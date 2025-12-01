@@ -1,0 +1,905 @@
+{
+	"info": {
+		"_postman_id": "toko-online-api-collection",
+		"name": "Toko Online - Complete API",
+		"description": "Complete REST API collection for Toko Online system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Authentication",
+			"item": [
+				{
+					"name": "Member Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "action",
+									"value": "login",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "andi@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "pass123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/auth.php",
+							"host": ["{{base_url}}"],
+							"path": ["auth.php"]
+						}
+					}
+				},
+				{
+					"name": "Member Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "action",
+									"value": "register",
+									"type": "text"
+								},
+								{
+									"key": "nama",
+									"value": "Test User",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "testuser@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "test123",
+									"type": "text"
+								},
+								{
+									"key": "no_hp",
+									"value": "08123456789",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/auth.php",
+							"host": ["{{base_url}}"],
+							"path": ["auth.php"]
+						}
+					}
+				},
+				{
+					"name": "Admin Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "action",
+									"value": "admin_login",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "admin1@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "adminpass",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/auth.php",
+							"host": ["{{base_url}}"],
+							"path": ["auth.php"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "2. Products",
+			"item": [
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/product.php",
+							"host": ["{{base_url}}"],
+							"path": ["product.php"]
+						}
+					}
+				},
+				{
+					"name": "Get Single Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/product.php?id=1",
+							"host": ["{{base_url}}"],
+							"path": ["product.php"],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nama_barang",
+									"value": "Test Product",
+									"type": "text"
+								},
+								{
+									"key": "id_kategori",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "harga",
+									"value": "100000",
+									"type": "text"
+								},
+								{
+									"key": "stok",
+									"value": "50",
+									"type": "text"
+								},
+								{
+									"key": "deskripsi",
+									"value": "Test description",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/product.php",
+							"host": ["{{base_url}}"],
+							"path": ["product.php"]
+						}
+					}
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "_method",
+									"value": "PUT",
+									"type": "text"
+								},
+								{
+									"key": "nama_barang",
+									"value": "Updated Product",
+									"type": "text"
+								},
+								{
+									"key": "id_kategori",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "harga",
+									"value": "150000",
+									"type": "text"
+								},
+								{
+									"key": "stok",
+									"value": "60",
+									"type": "text"
+								},
+								{
+									"key": "deskripsi",
+									"value": "Updated description",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/product.php?id=1",
+							"host": ["{{base_url}}"],
+							"path": ["product.php"],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "_method",
+									"value": "DELETE",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/product.php?id=6",
+							"host": ["{{base_url}}"],
+							"path": ["product.php"],
+							"query": [
+								{
+									"key": "id",
+									"value": "6"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "3. Categories",
+			"item": [
+				{
+					"name": "Get All Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/category.php",
+							"host": ["{{base_url}}"],
+							"path": ["category.php"]
+						}
+					}
+				},
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nama_kategori",
+									"value": "Test Category",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/category.php",
+							"host": ["{{base_url}}"],
+							"path": ["category.php"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "4. Shopping Cart",
+			"item": [
+				{
+					"name": "Get Cart",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/cart.php?id_member=1",
+							"host": ["{{base_url}}"],
+							"path": ["cart.php"],
+							"query": [
+								{
+									"key": "id_member",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Add to Cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_member",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "id_barang",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "qty",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/cart.php",
+							"host": ["{{base_url}}"],
+							"path": ["cart.php"]
+						}
+					}
+				},
+				{
+					"name": "Update Cart Quantity",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "_method",
+									"value": "PUT",
+									"type": "text"
+								},
+								{
+									"key": "qty",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/cart.php?id=1",
+							"host": ["{{base_url}}"],
+							"path": ["cart.php"],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Remove from Cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "_method",
+									"value": "DELETE",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/cart.php?id=1",
+							"host": ["{{base_url}}"],
+							"path": ["cart.php"],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Clear Cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "_method",
+									"value": "DELETE",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/cart.php?id_member=1",
+							"host": ["{{base_url}}"],
+							"path": ["cart.php"],
+							"query": [
+								{
+									"key": "id_member",
+									"value": "1"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "5. Sales/Orders",
+			"item": [
+				{
+					"name": "Get All Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/penjualan.php",
+							"host": ["{{base_url}}"],
+							"path": ["penjualan.php"]
+						}
+					}
+				},
+				{
+					"name": "Get Order Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/penjualan.php?id=1",
+							"host": ["{{base_url}}"],
+							"path": ["penjualan.php"],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Order (Checkout)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_member",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "items",
+									"value": "[{\"id_barang\":2,\"qty\":1},{\"id_barang\":3,\"qty\":2}]",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/penjualan.php",
+							"host": ["{{base_url}}"],
+							"path": ["penjualan.php"]
+						}
+					}
+				},
+				{
+					"name": "Update Order Status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "_method",
+									"value": "PUT",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "paid",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/penjualan.php?id=1",
+							"host": ["{{base_url}}"],
+							"path": ["penjualan.php"],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "6. Payments",
+			"item": [
+				{
+					"name": "Get All Payments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/payment.php",
+							"host": ["{{base_url}}"],
+							"path": ["payment.php"]
+						}
+					}
+				},
+				{
+					"name": "Create Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_penjualan",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "metode",
+									"value": "Transfer BCA",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "lunas",
+									"type": "text"
+								},
+								{
+									"key": "tanggal_bayar",
+									"value": "2024-12-01",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/payment.php",
+							"host": ["{{base_url}}"],
+							"path": ["payment.php"]
+						}
+					}
+				},
+				{
+					"name": "Update Payment Status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "_method",
+									"value": "PUT",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "lunas",
+									"type": "text"
+								},
+								{
+									"key": "tanggal_bayar",
+									"value": "2024-12-01",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/payment.php?id=1",
+							"host": ["{{base_url}}"],
+							"path": ["payment.php"],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "7. Reviews",
+			"item": [
+				{
+					"name": "Get Product Reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/review.php?id_barang=2",
+							"host": ["{{base_url}}"],
+							"path": ["review.php"],
+							"query": [
+								{
+									"key": "id_barang",
+									"value": "2"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Review",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_member",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "id_barang",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "rating",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "komentar",
+									"value": "Produk sangat bagus!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/review.php",
+							"host": ["{{base_url}}"],
+							"path": ["review.php"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "8. Vouchers",
+			"item": [
+				{
+					"name": "Get Active Vouchers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/voucher.php?active=1",
+							"host": ["{{base_url}}"],
+							"path": ["voucher.php"],
+							"query": [
+								{
+									"key": "active",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Validate Voucher",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/voucher.php?kode=PROMO10",
+							"host": ["{{base_url}}"],
+							"path": ["voucher.php"],
+							"query": [
+								{
+									"key": "kode",
+									"value": "PROMO10"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Voucher",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "kode_voucher",
+									"value": "NEWPROMO",
+									"type": "text"
+								},
+								{
+									"key": "deskripsi",
+									"value": "Diskon 20%",
+									"type": "text"
+								},
+								{
+									"key": "persentase",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "max_potongan",
+									"value": "100000",
+									"type": "text"
+								},
+								{
+									"key": "tanggal_mulai",
+									"value": "2024-12-01",
+									"type": "text"
+								},
+								{
+									"key": "tanggal_selesai",
+									"value": "2024-12-31",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/voucher.php",
+							"host": ["{{base_url}}"],
+							"path": ["voucher.php"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "9. Wishlist",
+			"item": [
+				{
+					"name": "Get Wishlist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/wishlist.php?id_member=1",
+							"host": ["{{base_url}}"],
+							"path": ["wishlist.php"],
+							"query": [
+								{
+									"key": "id_member",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Add to Wishlist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_member",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "id_barang",
+									"value": "4",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/wishlist.php",
+							"host": ["{{base_url}}"],
+							"path": ["wishlist.php"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "10. Notifications",
+			"item": [
+				{
+					"name": "Get Notifications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notifikasi.php?id_member=1",
+							"host": ["{{base_url}}"],
+							"path": ["notifikasi.php"],
+							"query": [
+								{
+									"key": "id_member",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Mark as Read",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "_method",
+									"value": "PUT",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/notifikasi.php?id=1",
+							"host": ["{{base_url}}"],
+							"path": ["notifikasi.php"],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost/belajar-web/toko-online-php/api",
+			"type": "string"
+		}
+	]
+}

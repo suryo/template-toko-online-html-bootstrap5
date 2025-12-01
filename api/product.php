@@ -91,7 +91,8 @@ switch ($method) {
         }
         break;
 
-    
+    // PUT - Update product
+    case 'PUT':
         if (!isset($_GET['id'])) {
             jsonResponse(400, ['status' => false, 'message' => 'Parameter id wajib']);
         }
@@ -103,10 +104,10 @@ switch ($method) {
         $stok        = $_POST['stok'] ?? null;
         $deskripsi   = $_POST['deskripsi'] ?? '';
 
-        if (!$nama_barang) {
+        if (!$nama_barang || !$id_kategori || !$harga) {
             jsonResponse(400, [
                 'status'  => false,
-                'message' => 'Field wajib: nama_barang, id_kategori, harga, stok'
+                'message' => 'Field wajib: nama_barang, id_kategori, harga'
             ]);
         }
 
