@@ -9,6 +9,7 @@ if (isset($_SESSION['admin_id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,7 @@ if (isset($_SESSION['admin_id'])) {
     <link rel="stylesheet" href="assets/css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body class="login-page">
     <div class="login-container">
         <div class="login-card">
@@ -26,7 +28,7 @@ if (isset($_SESSION['admin_id'])) {
                 <h1>Admin Panel</h1>
                 <p>Toko Online Management System</p>
             </div>
-            
+
             <form id="admin-login-form" onsubmit="handleLogin(event)">
                 <div class="form-group">
                     <label>
@@ -35,7 +37,7 @@ if (isset($_SESSION['admin_id'])) {
                     </label>
                     <input type="text" id="username" placeholder="Masukkan username" required autofocus>
                 </div>
-                
+
                 <div class="form-group">
                     <label>
                         <i class="fas fa-lock"></i>
@@ -43,12 +45,12 @@ if (isset($_SESSION['admin_id'])) {
                     </label>
                     <input type="password" id="password" placeholder="Masukkan password" required>
                 </div>
-                
+
                 <button type="submit" class="btn btn-primary btn-block">
                     <i class="fas fa-sign-in-alt"></i> Login
                 </button>
             </form>
-            
+
             <div class="login-footer">
                 <p>&copy; 2024 Toko Online. All rights reserved.</p>
             </div>
@@ -58,53 +60,59 @@ if (isset($_SESSION['admin_id'])) {
     <div id="toast" class="toast"></div>
 
     <script>
-        const API_BASE = 'http://localhost/belajar-web/toko-online-php/api';
-        
+        const API_BASE = '../api';
+
         function showToast(message, type = 'info') {
             const toast = document.getElementById('toast');
             toast.textContent = message;
             toast.className = `toast toast-${type} show`;
-            
+
             setTimeout(() => {
                 toast.className = 'toast';
             }, 3000);
         }
-        
+
         function showSuccess(message) {
             showToast(message, 'success');
         }
-        
+
         function showError(message) {
             showToast(message, 'error');
         }
-        
+
         async function handleLogin(e) {
             e.preventDefault();
-            
+
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-            
+
+            console.log('Attempting login with:', username);
+
             const formData = new FormData();
             formData.append('action', 'admin_login');
             formData.append('username', username);
             formData.append('password', password);
-            
+
             try {
                 const response = await fetch(API_BASE + '/auth.php', {
                     method: 'POST',
                     body: formData
                 });
-                
-                const data = await response.json();
-                
+
+                const responseText = await response.text();
+                console.log('Raw response:', responseText);
+
+                const data = JSON.parse(responseText);
+                console.log('Parsed data:', data);
+
                 if (data.status) {
                     showSuccess('Login berhasil! Mengalihkan...');
-                    
+
                     // Store admin session
                     sessionStorage.setItem('admin_id', data.data.id);
                     sessionStorage.setItem('admin_username', data.data.username);
                     sessionStorage.setItem('admin_role', data.data.role);
-                    
+
                     setTimeout(() => {
                         window.location.href = 'dashboard.php';
                     }, 1000);
@@ -113,9 +121,10 @@ if (isset($_SESSION['admin_id'])) {
                 }
             } catch (error) {
                 console.error('Error:', error);
-                showError('Terjadi kesalahan saat login');
+                showError('Terjadi kesalahan saat login: ' + error.message);
             }
         }
     </script>
 </body>
+
 </html>

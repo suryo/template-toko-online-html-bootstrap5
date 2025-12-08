@@ -1,4 +1,8 @@
 <?php
+session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
@@ -11,217 +15,128 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 require_once __DIR__ . '/../config/koneksi.php';
 
-function jsonResponse($statusCode, $data) {
+function sendResponse($statusCode, $data)
+{
     http_response_code($statusCode);
     echo json_encode($data);
     exit;
 }
 
-$method = $_SERVER['REQUEST_METHOD'];
-
-if ($method !== 'POST') {
-    jsonResponse(405, ['status' => false, 'message' => 'Method tidak diizinkan']);
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    sendResponse(405, ['status' => false, 'message' => 'Method tidak diizinkan']);
 }
 
-// Get action type
-$action = $_POST['action'] ?? null;
+$action = isset($_POST['action']) ? $_POST['action'] : null;
 
-switch ($action) {
-    
-    // Member Login
-    case 'login':
-        $email = $_POST['email'] ?? null;
-        $password = $_POST['password'] ?? null;
+if ($action === 'admin_login') {
+    $username = isset($_POST['username']) ? $_POST['username'] : null;
+    $password = isset($_POST['password']) ? $_POST['password'] : null;
 
-        if (!$email || !$password) {
-            jsonResponse(400, [
-                'status' => false,
-                'message' => 'Field wajib: email, password'
-            ]);
-        }
-
-        $stmt = $conn->prepare("SELECT id, nama, email, password, no_hp, role FROM member WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result()->fetch_assoc();
-
-        if (!$result) {
-            jsonResponse(401, [
-                'status' => false,
-                'message' => 'Email atau password salah'
-            ]);
-        }
-
-        // Verify password
-        if (password_verify($password, $result['password'])) {
-            unset($result['password']);
-            
-            jsonResponse(200, [
-                'status' => true,
-                'message' => 'Login berhasil',
-                'data' => $result
-            ]);
-        } else {
-            // Fallback for plain text
-            if ($password === $result['password']) {
-                unset($result['password']);
-                
-                jsonResponse(200, [
-                    'status' => true,
-                    'message' => 'Login berhasil',
-                    'data' => $result
-                ]);
-            } else {
-                jsonResponse(401, [
-                    'status' => false,
-                    'message' => 'Email atau password salah'
-                ]);
-            }
-        }
-        break;
-
-    // Member Register
-    case 'register':
-        $nama = $_POST['nama'] ?? null;
-        $email = $_POST['email'] ?? null;
-        $password = $_POST['password'] ?? null;
-        $no_hp = $_POST['no_hp'] ?? null;
-
-        if (!$nama || !$email || !$password) {
-            jsonResponse(400, [
-                'status' => false,
-                'message' => 'Field wajib: nama, email, password'
-            ]);
-        }
-
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            jsonResponse(400, [
-                'status' => false,
-                'message' => 'Format email tidak valid'
-            ]);
-        }
-
-        $checkStmt = $conn->prepare("SELECT id FROM member WHERE email = ?");
-        $checkStmt->bind_param("s", $email);
-        $checkStmt->execute();
-        if ($checkStmt->get_result()->num_rows > 0) {
-            jsonResponse(400, [
-                'status' => false,
-                'message' => 'Email sudah terdaftar'
-            ]);
-        }
-
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        $stmt = $conn->prepare("INSERT INTO member (nama, email, password, no_hp, role) VALUES (?, ?, ?, ?, 'member')");
-        $stmt->bind_param("ssss", $nama, $email, $hashedPassword, $no_hp);
-
-        if ($stmt->execute()) {
-            $id = $conn->insert_id;
-            
-            jsonResponse(201, [
-                'status' => true,
-                'message' => 'Registrasi berhasil',
-                'data' => [
-                    'id' => $id,
-                    'nama' => $nama,
-                    'email' => $email,
-                    'no_hp' => $no_hp,
-                    'role' => 'member'
-                ]
-            ]);
-        } else {
-            jsonResponse(500, [
-                'status' => false,
-                'message' => 'Gagal registrasi: ' . $conn->error
-            ]);
-        }
-        break;
-
-    // Admin Login
-    case 'admin_login':
-        $username = $_POST['username'] ?? null; // Can be email or name
-        $password = $_POST['password'] ?? null;
-
-        if (!$username || !$password) {
-            jsonResponse(400, [
-                'status' => false,
-                'message' => 'Field wajib: username, password'
-            ]);
-        }
-
-        // Check by email or nama, AND role must be admin
-        $stmt = $conn->prepare("SELECT id, nama as username, email, password, role FROM member WHERE (email = ? OR nama = ?) AND role = 'admin'");
-        $stmt->bind_param("ss", $username, $username);
-        $stmt->execute();
-        $result = $stmt->get_result()->fetch_assoc();
-
-        if (!$result) {
-            jsonResponse(401, [
-                'status' => false,
-                'message' => 'Username/Email salah atau bukan admin'
-            ]);
-        }
-
-        if (password_verify($password, $result['password'])) {
-            unset($result['password']);
-            
-            jsonResponse(200, [
-                'status' => true,
-                'message' => 'Login berhasil',
-                'data' => $result
-            ]);
-        } else {
-            if ($password === $result['password']) {
-                unset($result['password']);
-                
-                jsonResponse(200, [
-                    'status' => true,
-                    'message' => 'Login berhasil',
-                    'data' => $result
-                ]);
-            } else {
-                jsonResponse(401, [
-                    'status' => false,
-                    'message' => 'Password salah'
-                ]);
-            }
-        }
-        break;
-
-    // Verify Token (placeholder - implement JWT if needed)
-    case 'verify':
-        $id_member = $_POST['id_member'] ?? null;
-
-        if (!$id_member) {
-            jsonResponse(400, [
-                'status' => false,
-                'message' => 'Field wajib: id_member'
-            ]);
-        }
-
-        $stmt = $conn->prepare("SELECT id, nama, email, no_hp, role FROM member WHERE id = ?");
-        $stmt->bind_param("i", $id_member);
-        $stmt->execute();
-        $result = $stmt->get_result()->fetch_assoc();
-
-        if ($result) {
-            jsonResponse(200, [
-                'status' => true,
-                'message' => 'Token valid',
-                'data' => $result
-            ]);
-        } else {
-            jsonResponse(401, [
-                'status' => false,
-                'message' => 'Token tidak valid'
-            ]);
-        }
-        break;
-
-    default:
-        jsonResponse(400, [
+    if (empty($username) || empty($password)) {
+        sendResponse(400, [
             'status' => false,
-            'message' => 'Action tidak valid. Gunakan: login, register, admin_login, verify'
+            'message' => 'Username dan password wajib diisi'
         ]);
+    }
+
+    $sql = "SELECT id, username, password, role FROM users WHERE username = ? AND role = 'admin'";
+    $stmt = $conn->prepare($sql);
+
+    if (!$stmt) {
+        sendResponse(500, [
+            'status' => false,
+            'message' => 'Database error: ' . $conn->error
+        ]);
+    }
+
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
+
+    if (!$user) {
+        sendResponse(401, [
+            'status' => false,
+            'message' => 'Username tidak ditemukan atau bukan admin'
+        ]);
+    }
+
+    if ($password === $user['password']) {
+        $_SESSION['admin_id'] = $user['id'];
+        $_SESSION['admin_username'] = $user['username'];
+        $_SESSION['admin_role'] = $user['role'];
+
+        sendResponse(200, [
+            'status' => true,
+            'message' => 'Login berhasil',
+            'data' => [
+                'id' => $user['id'],
+                'username' => $user['username'],
+                'role' => $user['role']
+            ]
+        ]);
+    } else {
+        sendResponse(401, [
+            'status' => false,
+            'message' => 'Password salah'
+        ]);
+    }
+} elseif ($action === 'login') {
+    $username = isset($_POST['email']) ? $_POST['email'] : null;
+    $password = isset($_POST['password']) ? $_POST['password'] : null;
+
+    if (empty($username) || empty($password)) {
+        sendResponse(400, [
+            'status' => false,
+            'message' => 'Username dan password wajib diisi'
+        ]);
+    }
+
+    $sql = "SELECT id, username, password, role FROM users WHERE username = ?";
+    $stmt = $conn->prepare($sql);
+
+    if (!$stmt) {
+        sendResponse(500, [
+            'status' => false,
+            'message' => 'Database error: ' . $conn->error
+        ]);
+    }
+
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
+
+    if (!$user) {
+        sendResponse(401, [
+            'status' => false,
+            'message' => 'Username tidak ditemukan'
+        ]);
+    }
+
+    if ($password === $user['password']) {
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
+        $_SESSION['role'] = $user['role'];
+
+        sendResponse(200, [
+            'status' => true,
+            'message' => 'Login berhasil',
+            'data' => [
+                'id' => $user['id'],
+                'username' => $user['username'],
+                'role' => $user['role']
+            ]
+        ]);
+    } else {
+        sendResponse(401, [
+            'status' => false,
+            'message' => 'Password salah'
+        ]);
+    }
+} else {
+    sendResponse(400, [
+        'status' => false,
+        'message' => 'Action tidak valid'
+    ]);
 }

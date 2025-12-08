@@ -2,19 +2,14 @@
 session_start();
 
 // Check if admin is logged in
-if (!isset($_SESSION['admin_id']) && !isset($_SESSION['admin_username'])) {
-    // Check sessionStorage via JavaScript (will be handled in script)
-    ?>
-    <script>
-        if (!sessionStorage.getItem('admin_id')) {
-            window.location.href = 'index.php';
-        }
-    </script>
-    <?php
+if (!isset($_SESSION['admin_id'])) {
+    header('Location: login.php');
+    exit;
 }
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,6 +17,7 @@ if (!isset($_SESSION['admin_id']) && !isset($_SESSION['admin_username'])) {
     <link rel="stylesheet" href="assets/css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <!-- Sidebar -->
     <?php include 'includes/sidebar.php'; ?>
@@ -156,7 +152,7 @@ if (!isset($_SESSION['admin_id']) && !isset($_SESSION['admin_username'])) {
                 if (ordersData.status && ordersData.data) {
                     document.getElementById('total-orders').textContent = ordersData.data.length;
                     displayRecentOrders(ordersData.data.slice(0, 5));
-                    
+
                     // Calculate revenue
                     const revenue = ordersData.data.reduce((sum, order) => sum + parseFloat(order.total), 0);
                     document.getElementById('total-revenue').textContent = 'Rp ' + formatPrice(revenue);
@@ -167,7 +163,7 @@ if (!isset($_SESSION['admin_id']) && !isset($_SESSION['admin_username'])) {
                 const productsData = await productsRes.json();
                 if (productsData.status && productsData.data) {
                     document.getElementById('total-products').textContent = productsData.data.length;
-                    
+
                     // Find low stock products
                     const lowStock = productsData.data.filter(p => p.stok < 10).slice(0, 5);
                     displayLowStockProducts(lowStock);
@@ -187,12 +183,12 @@ if (!isset($_SESSION['admin_id']) && !isset($_SESSION['admin_username'])) {
         // Display recent orders
         function displayRecentOrders(orders) {
             const tbody = document.getElementById('recent-orders');
-            
+
             if (orders.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="5" class="text-center">Belum ada pesanan</td></tr>';
                 return;
             }
-            
+
             tbody.innerHTML = orders.map(order => `
                 <tr>
                     <td>#${order.id}</td>
@@ -207,12 +203,12 @@ if (!isset($_SESSION['admin_id']) && !isset($_SESSION['admin_username'])) {
         // Display low stock products
         function displayLowStockProducts(products) {
             const tbody = document.getElementById('low-stock-products');
-            
+
             if (products.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="4" class="text-center">Semua produk stok aman</td></tr>';
                 return;
             }
-            
+
             tbody.innerHTML = products.map(product => `
                 <tr>
                     <td>${product.nama_barang}</td>
@@ -245,4 +241,5 @@ if (!isset($_SESSION['admin_id']) && !isset($_SESSION['admin_username'])) {
         });
     </script>
 </body>
+
 </html>
